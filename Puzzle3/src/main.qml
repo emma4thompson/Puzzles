@@ -14,14 +14,14 @@ ApplicationWindow {
         id: big_wrapper
         anchors.fill: parent
 
-        //        AnimatedImage
-        //        {
-        //            id: gif_background
-        //            source: "../img/background.gif"
-        //            anchors.fill: parent
-        //            height: parent.height
-        //            width: parent.width
-        //        }
+        AnimatedImage
+        {
+            id: gif_background
+            source: "../img/background.gif"
+            anchors.fill: parent
+            height: parent.height
+            width: parent.width
+        }
 
         Text
         {
@@ -29,7 +29,7 @@ ApplicationWindow {
             text: Cursed_8_ball.get_question();
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 24
-            font.family: "BELLABOO"
+            font.family: "Indy Pimp"
             color: "purple"
             anchors.bottomMargin: 20
         }
@@ -47,6 +47,12 @@ ApplicationWindow {
             height: 50
             width: 50
             color: "orange"
+            Keys.onReturnPressed:
+            {
+                Cursed_8_ball.set_question(txtin_input.text);
+                txt_question.text = Cursed_8_ball.get_question();
+                Cursed_8_ball.set_draggable(true)
+            }
         }
 
         Rectangle
@@ -123,7 +129,7 @@ ApplicationWindow {
                 {
                     id: txt_saying
                     wrapMode: Text.Wrap
-                    font.family: "BELLABOO"
+                    font.family: "Indy Pimp"
                     font.pointSize: 24
                     anchors.centerIn: parent
 
@@ -136,11 +142,15 @@ ApplicationWindow {
                 id: ma_mouse_area
                 anchors.fill: parent
 
+                onClicked:{
+                     txt_saying.text = spg_animation_y.running ? "" : Cursed_8_ball.get_saying(Math.floor((Math.random() * (3 - 0)) + 0))
+                }
+
                 onReleased:
                 {
                     if(Cursed_8_ball.get_is_draggable())
                     {
-                        //drag.target = undefined
+                        drag.target = parent
                         rect_outer_ball.x = big_wrapper.width/2 - rect_outer_ball.width/2;
                         rect_outer_ball.y = big_wrapper.height/2 - rect_outer_ball.height/2;
                     }
