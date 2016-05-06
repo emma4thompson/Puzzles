@@ -12,7 +12,7 @@ ApplicationWindow {
 
     property int xpos
     property int ypos
-
+    property bool pen_pressed
 
     Rectangle
     {
@@ -108,6 +108,7 @@ ApplicationWindow {
                 onPressed:
                 {
                     img_pen.opacity = 0.2
+                    pen_pressed = !pen_pressed
                 }
 
                 onReleased:
@@ -140,17 +141,20 @@ ApplicationWindow {
                 onPressed: {
                     xpos = mouseX
                     ypos = mouseY
-                    canvas_canvas.requestPaint()
+                    if (pen_pressed)
+                        canvas_canvas.requestPaint()
                 }
                 onMouseXChanged: {
                     xpos = mouseX
                     ypos = mouseY
-                    canvas_canvas.requestPaint()
+                    if (pen_pressed)
+                        canvas_canvas.requestPaint()
                 }
                 onMouseYChanged: {
                     xpos = mouseX
                     ypos = mouseY
-                    canvas_canvas.requestPaint()
+                    if (pen_pressed)
+                        canvas_canvas.requestPaint()
                 }
 
                 preventStealing: true
